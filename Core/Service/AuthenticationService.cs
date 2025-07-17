@@ -19,7 +19,9 @@ namespace Service
         public async Task<bool> CheckEmailAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
-            return user is null;
+            if (user is null)
+                return false;
+            return true;
         }
 
         public async Task<AddressDto> GetCurrentUserAddressAsync(string Email)
