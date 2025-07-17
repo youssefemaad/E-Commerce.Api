@@ -7,8 +7,7 @@ using Shared.DataTransferObject.BasketModuleDto;
 
 namespace Service
 {
-    public class BasketService(IBasketRepository basketRepository, IMapper mapper
-    ) : IBasketService
+    public class BasketService(IBasketRepository basketRepository, IMapper mapper) : IBasketService
     {
         public async Task<BasketDto> CreateOrUpdateAsync(BasketDto basket)
         {

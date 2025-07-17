@@ -10,7 +10,6 @@ namespace Service.Specifications
               (!queryParams.TypeId.HasValue || P.TypeId == queryParams.TypeId) && 
               (string.IsNullOrWhiteSpace(queryParams.Search) || P.Name.ToLower().Contains(queryParams.Search.ToLower())))
         {
-            
         }
     }
 }
