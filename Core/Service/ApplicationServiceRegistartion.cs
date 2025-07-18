@@ -10,6 +10,7 @@ namespace Service
             services.AddAutoMapper(typeof(AssemblyReference).Assembly);
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IServiceManager, ServiceMangerWithDelegates>();
+            services.AddScoped<ICachingService, CachingService>();
 
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<Func<IProductService>>(provider => () => provider.GetRequiredService<IProductService>());
