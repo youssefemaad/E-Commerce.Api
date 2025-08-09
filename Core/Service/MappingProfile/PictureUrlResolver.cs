@@ -9,7 +9,7 @@ namespace Service.MappingProfile
     {
         public string Resolve(Product source, ProductDto destination, string destMember, ResolutionContext context)
         {
-            if(string.IsNullOrEmpty(source.PictureUrl))
+            if (string.IsNullOrEmpty(source.PictureUrl))
             {
                 return string.Empty;
             }

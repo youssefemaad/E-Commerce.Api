@@ -10,6 +10,6 @@ namespace Shared.DataTransferObject.IdentityModuleDto
         public string UserName { get; set; } = default!;
         public string DisplayName { get; set; } = default!;
         [Phone]
-        public string PhoneNumber { get; set; } = default!;
+        public string PhoneNumber { get; set; }
     }
 }

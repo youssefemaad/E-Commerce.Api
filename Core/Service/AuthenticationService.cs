@@ -24,14 +24,12 @@ namespace Service
             return true;
         }
 
-        public async Task<AddressDto> GetCurrentUserAddressAsync(string Email)
+        public async Task<AddressDto?> GetCurrentUserAddressAsync(string Email)
         {
             var user = await _userManager.Users.Include(u => u.Address)
                                                .FirstOrDefaultAsync(u => u.Email == Email) ?? throw new UserNotFound(Email);
 
-            if (user.Address is null)
-                throw new AddressNotFoundException(Email);
-            return mapper.Map<Address, AddressDto>(user.Address);
+            return mapper.Map<AddressDto>(user.Address);
         }
 
         public async Task<UserDto> GetCurrentUserAsync(string Email)
