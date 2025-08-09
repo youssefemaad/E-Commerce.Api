@@ -6,7 +6,7 @@ namespace Service.Specifications
     class ProductWithBrandAndTypeSpecifications : BaseSpecification<Product, int>
     {
         public ProductWithBrandAndTypeSpecifications(ProductQueryParams queryParams) :
-                    base(P =>(!queryParams.BrandId.HasValue || P.BrandId == queryParams.BrandId) && (!queryParams.TypeId.HasValue || P.TypeId == queryParams.TypeId) && (string.IsNullOrWhiteSpace(queryParams.Search) || P.Name.ToLower().Contains(queryParams.Search.ToLower())))
+                    base(P => (!queryParams.BrandId.HasValue || P.BrandId == queryParams.BrandId) && (!queryParams.TypeId.HasValue || P.TypeId == queryParams.TypeId) && (string.IsNullOrWhiteSpace(queryParams.Search) || P.Name.ToLower().Contains(queryParams.Search.ToLower())))
         {
             AddInclude(n => n.ProductBrand);
             AddInclude(n => n.ProductType);

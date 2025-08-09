@@ -15,7 +15,7 @@ namespace Service
         {
             var Repo = _unitOfWork.GetRepository<ProductBrand, int>();
             var brands = await Repo.GetAllAsync();
-            var brandDtos = _mapper.Map<IEnumerable<ProductBrand> ,IEnumerable<BrandDto>>(brands);
+            var brandDtos = _mapper.Map<IEnumerable<ProductBrand>, IEnumerable<BrandDto>>(brands);
             return brandDtos;
         }
 
@@ -24,8 +24,8 @@ namespace Service
             var Repo = _unitOfWork.GetRepository<Product, int>();
             var specification = new ProductWithBrandAndTypeSpecifications(queryParams);
             var products = await Repo.GetAllAsync(specification);
-            var AllProductsDto =  _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
-            var totalCount = await Repo.CountAsync(new ProductCountSpecification (queryParams));
+            var AllProductsDto = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
+            var totalCount = await Repo.CountAsync(new ProductCountSpecification(queryParams));
             return new PaginationResult<ProductDto>(queryParams.PageNumber, AllProductsDto.Count(), totalCount, AllProductsDto);
         }
 
