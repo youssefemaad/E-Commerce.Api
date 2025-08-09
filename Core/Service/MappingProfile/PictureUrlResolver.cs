@@ -15,7 +15,9 @@ namespace Service.MappingProfile
             }
             else
             {
-                var Url = $"{configuration.GetSection("Urls")["BaseUrl"]}{source.PictureUrl}";
+                var baseUrl = configuration.GetSection("Urls")["BaseUrl"];
+                var pictureUrl = source.PictureUrl.StartsWith("/") ? source.PictureUrl : "/" + source.PictureUrl;
+                var Url = $"{baseUrl}{pictureUrl}";
                 return Url;
             }
         }

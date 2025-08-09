@@ -31,7 +31,7 @@ namespace Service.Specifications
 
         public bool IsPaginated { get; set; }
 
-        protected void ApplyPagination(int PageSize, int PageIndex)
+        protected void ApplyPagination(int PageIndex, int PageSize)
         {
             IsPaginated = true;
             Skip = PageSize * (PageIndex - 1);
