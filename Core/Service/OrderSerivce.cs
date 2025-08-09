@@ -15,7 +15,7 @@ public class OrderSerivce(IMapper _mapper, IBasketRepository basketRepository, I
 {
     public async Task<OrderToReturnDto> CreateOrder(OrderDto orderDto, string Email)
     {
-        var OrderAddress = _mapper.Map<AddressDto, OrderAddress>(orderDto.Address);
+        var OrderAddress = _mapper.Map<AddressDto, OrderAddress>(orderDto.shippingAddress);
         var Basket = await basketRepository.GetBasketAsync(orderDto.BasketId)?? throw new BasketNotFoundException(orderDto.BasketId);
         List<OrderItem> orderItems = [];
         var ProductRepo = unitOfWork.GetRepository<Product, int>();
@@ -72,7 +72,7 @@ public class OrderSerivce(IMapper _mapper, IBasketRepository basketRepository, I
     {
         var spec = new OrderSpecification(id);
         var Order = await unitOfWork.GetRepository<Order, Guid>().GetByIdAsync(spec);
-        return _mapper.Map<Order, OrderToReturnDto>(Order);
+        return _mapper.Map<Order, OrderToReturnDto>(Order!);
     }
 
 }

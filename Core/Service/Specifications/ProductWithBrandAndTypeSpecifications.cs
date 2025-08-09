@@ -11,7 +11,7 @@ namespace Service.Specifications
             AddInclude(n => n.ProductBrand);
             AddInclude(n => n.ProductType);
 
-            switch (queryParams.SortingOptions)
+            switch (queryParams.sort)
             {
                 case ProductSortingOptions.PriceAsc:
                     AddOrderBy(n => n.Price);
@@ -30,7 +30,7 @@ namespace Service.Specifications
                     break;
             }
 
-            ApplyPagination(queryParams.PageIndex, queryParams.PageSize);
+            ApplyPagination(queryParams.PageNumber, queryParams.PageSize);
         }
 
         public ProductWithBrandAndTypeSpecifications(int id) : base(n => n.Id == id)

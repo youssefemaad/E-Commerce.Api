@@ -40,7 +40,7 @@ namespace Service
             return new UserDto()
             {
                 DisplayName = user.DisplayName,
-                Email = user.Email,
+                Email = user.Email!,
                 Token = await CreateTokenAsync(user),
             };
         }
@@ -57,7 +57,7 @@ namespace Service
                 return new UserDto
                 {
                     DisplayName = User.DisplayName,
-                    Email = User.Email,
+                    Email = User.Email!,
                     Token = await CreateTokenAsync(User),
                 };
             }
@@ -133,7 +133,7 @@ namespace Service
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
             var SecurityKey = _configuration.GetSection("JwtOptions")["SecretKey"];
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecurityKey));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecurityKey!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(
                 issuer: _configuration.GetSection("JwtOptions")["Issuer"],
