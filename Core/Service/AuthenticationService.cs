@@ -35,12 +35,7 @@ namespace Service
         public async Task<UserDto> GetCurrentUserAsync(string Email)
         {
             var user = await _userManager.FindByEmailAsync(Email) ?? throw new UserNotFound(Email);
-            return new UserDto()
-            {
-                DisplayName = user.DisplayName,
-                Email = user.Email,
-                Token = await CreateTokenAsync(user),
-            };
+            return await CreateUserDtoAsync(user);
         }
 
 
@@ -52,12 +47,7 @@ namespace Service
             var result = await _userManager.CheckPasswordAsync(User, loginDto.Password);
             if (result)
             {
-                return new UserDto
-                {
-                    DisplayName = User.DisplayName,
-                    Email = User.Email,
-                    Token = await CreateTokenAsync(User),
-                };
+                return await CreateUserDtoAsync(User);
             }
             else
             {
@@ -100,18 +90,23 @@ namespace Service
             var result = await _userManager.CreateAsync(user, registerDto.Password);
             if (result.Succeeded)
             {
-                return new UserDto()
-                {
-                    DisplayName = user.DisplayName,
-                    Email = user.Email,
-                    Token = await CreateTokenAsync(user),
-                };
+                return await CreateUserDtoAsync(user);
             }
             else
             {
                 var errors = result.Errors.Select(e => e.Description).ToList();
                 throw new BadRequestException(errors);
             }
+        }
+
+        private async Task<UserDto> CreateUserDtoAsync(ApplicationUser user)
+        {
+            return new UserDto
+            {
+                DisplayName = user.DisplayName,
+                Email = user.Email,
+                Token = await CreateTokenAsync(user),
+            };
         }
 
 
