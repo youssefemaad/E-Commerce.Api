@@ -2,9 +2,9 @@ using DomainLayer.orderModule;
 
 namespace Service.Specifications;
 
-class OrderSpecification : BaseSpecification<Order,Guid>
+class OrderSpecification : BaseSpecification<Order, Guid>
 {
-    public OrderSpecification(string email) : base(o => o.UserEmail == email)
+    public OrderSpecification(string email) : base(o => o.buyerEmail == email)
     {
         AddInclude(o => o.DeliveryMethod);
         AddInclude(o => o.Items);
@@ -17,4 +17,4 @@ class OrderSpecification : BaseSpecification<Order,Guid>
         AddInclude(o => o.Items);
     }
 }
-    
+

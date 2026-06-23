@@ -9,13 +9,15 @@ namespace Service.MappingProfile
     {
         public string Resolve(Product source, ProductDto destination, string destMember, ResolutionContext context)
         {
-            if(string.IsNullOrEmpty(source.PictureUrl))
+            if (string.IsNullOrEmpty(source.PictureUrl))
             {
                 return string.Empty;
             }
             else
             {
-                var Url = $"{configuration.GetSection("Urls")["BaseUrl"]}{source.PictureUrl}";
+                var baseUrl = configuration.GetSection("Urls")["BaseUrl"];
+                var pictureUrl = source.PictureUrl.StartsWith("/") ? source.PictureUrl : "/" + source.PictureUrl;
+                var Url = $"{baseUrl}{pictureUrl}";
                 return Url;
             }
         }

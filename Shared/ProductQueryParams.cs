@@ -6,9 +6,9 @@ namespace Shared
         private const int DefaultPageSize = 5;
         public int? BrandId { get; set; }
         public int? TypeId { get; set; }
-        public ProductSortingOptions? SortingOptions { get; set; }
+        public ProductSortingOptions? sort { get; set; }
         public string? Search { get; set; }
-        public int PageIndex { get; set; } = 1;
+        public int PageNumber    { get; set; } = 1;
         private int pageSize { get; set; } = DefaultPageSize;
 
         public int PageSize

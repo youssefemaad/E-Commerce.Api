@@ -1,13 +1,26 @@
 {
+    "version": "0.2.0",
     "configurations": [
-        
         {
-            "name": "C#: E-Commerce.Web Debug",
+            "name": "Launch E-Commerce API",
             "type": "coreclr",
             "request": "launch",
-            "program": "D:/Youssef/Projects/Routes_Course/API/E-Commerce.Web/E-Commerce.Web/bin/Debug/net8.0/E-Commerce.Web.dll",
-            "cwd": "D:/Youssef/Projects/Routes_Course/API/E-Commerce.Web/E-Commerce.Web",
-            "stopAtEntry": false
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/E-Commerce.Web/bin/Debug/net8.0/E-Commerce.Web.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/E-Commerce.Web",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+                "uriFormat": "%s"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
         }
     ]
 }

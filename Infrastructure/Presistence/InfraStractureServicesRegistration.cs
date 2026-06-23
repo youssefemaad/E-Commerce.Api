@@ -18,6 +18,7 @@ public static class InfraStractureServicesRegistration
         services.AddScoped<IDataSeeding, DataSeeding>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IBasketRepository,BasketRepository>();
+        services.AddScoped<ICacheRepository, CacheRepository>();
         services.AddIdentityCore<ApplicationUser>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<StoreIdentityDbContex>();

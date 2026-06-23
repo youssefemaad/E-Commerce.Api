@@ -11,9 +11,9 @@ namespace Presentation.Controllers
     public class ProductsController(IServiceManager _serviceManager) : ApiControllerBase
     {
         #region Get All Products
-        [Authorize(Roles = "Admin")]
         [HttpGet]
-        public async Task<ActionResult<PaginationResult<ProductDto>>> GetAllProducts([FromQuery]ProductQueryParams queryParams)
+        [Cache]
+        public async Task<ActionResult<PaginationResult<ProductDto>>> GetAllProducts([FromQuery] ProductQueryParams queryParams)
         {
             var products = await _serviceManager.ProductService.GetAllProductsAsync(queryParams);
             return Ok(products);
@@ -35,6 +35,7 @@ namespace Presentation.Controllers
         #region Get All Types
 
         [HttpGet("types")]
+        [Cache]
         public async Task<ActionResult<IEnumerable<TypeDto>>> GetAllTypes()
         {
             var types = await _serviceManager.ProductService.GetAllTypesAsync();
@@ -46,6 +47,7 @@ namespace Presentation.Controllers
         #region Get All Brands
 
         [HttpGet("brands")]
+        [Cache]
         public async Task<ActionResult<IEnumerable<BrandDto>>> GetAllBrands()
         {
             var brands = await _serviceManager.ProductService.GetAllBrandsAsync();

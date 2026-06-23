@@ -33,7 +33,7 @@ namespace Presentation.Controllers
 
         #region Check Email
 
-        [HttpGet("CheckEmail")]
+        [HttpGet("emailexists")]
         public async Task<ActionResult<bool>> CheckEmail(string email)
         {
             var result = await _serviceManager.AuthenticationService.CheckEmailAsync(email);

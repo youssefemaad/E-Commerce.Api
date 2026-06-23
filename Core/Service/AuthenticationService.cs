@@ -19,17 +19,17 @@ namespace Service
         public async Task<bool> CheckEmailAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
-            return user is null;
+            if (user is null)
+                return false;
+            return true;
         }
 
-        public async Task<AddressDto> GetCurrentUserAddressAsync(string Email)
+        public async Task<AddressDto?> GetCurrentUserAddressAsync(string Email)
         {
             var user = await _userManager.Users.Include(u => u.Address)
                                                .FirstOrDefaultAsync(u => u.Email == Email) ?? throw new UserNotFound(Email);
 
-            if (user.Address is null)
-                throw new AddressNotFoundException(Email);
-            return mapper.Map<Address, AddressDto>(user.Address);
+            return mapper.Map<AddressDto>(user.Address);
         }
 
         public async Task<UserDto> GetCurrentUserAsync(string Email)
@@ -38,7 +38,7 @@ namespace Service
             return new UserDto()
             {
                 DisplayName = user.DisplayName,
-                Email = user.Email,
+                Email = user.Email!,
                 Token = await CreateTokenAsync(user),
             };
         }
@@ -55,7 +55,7 @@ namespace Service
                 return new UserDto
                 {
                     DisplayName = User.DisplayName,
-                    Email = User.Email,
+                    Email = User.Email!,
                     Token = await CreateTokenAsync(User),
                 };
             }
@@ -131,7 +131,7 @@ namespace Service
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
             var SecurityKey = _configuration.GetSection("JwtOptions")["SecretKey"];
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecurityKey));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecurityKey!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(
                 issuer: _configuration.GetSection("JwtOptions")["Issuer"],

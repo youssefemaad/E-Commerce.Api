@@ -42,18 +42,17 @@ namespace E_Commerce.Web.Controllers
             {
                 NotFoundException => StatusCodes.Status404NotFound,
                 UnAuthorizedException => StatusCodes.Status401Unauthorized,
-                BadRequestException badRequestException=> GetBadRequestErrors(badRequestException, Response),
+                BadRequestException badRequestException => GetBadRequestErrors(badRequestException, Response),
                 _ => StatusCodes.Status500InternalServerError
             };
 
             //Set Content type for the response
             context.Response.ContentType = "application/json";
 
-            //Set response Object
-            
+            // Ensure StatusCode is set in the response object
+            Response.StatusCode = context.Response.StatusCode;
 
             //Return Object as Json
-            context.Response.StatusCode = Response.StatusCode;
             await context.Response.WriteAsJsonAsync(Response);
         }
 
